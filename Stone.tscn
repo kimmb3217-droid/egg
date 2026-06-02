@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://stoneuid123"]
+
+[ext_resource type="Script" path="res://Stone.gd" id="1_scr"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_abc12"]
+friction = 0.3
+bounce = 0.6
+
+[sub_resource type="Gradient" id="Gradient_abc12"]
+offsets = PackedFloat32Array(0.85, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_def34"]
+gradient = SubResource("Gradient_abc12")
+width = 64
+height = 64
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_abc12"]
+radius = 30.0
+
+[node name="Stone" type="RigidBody2D"]
+input_pickable = true
+physics_material_override = SubResource("PhysicsMaterial_abc12")
+gravity_scale = 0.0
+linear_damp = 1.5
+angular_damp = 2.0
+script = ExtResource("1_scr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_def34")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_abc12")
+
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+width = 5.0
+default_color = Color(1, 0, 0, 0.6)
