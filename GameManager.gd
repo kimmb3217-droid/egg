@@ -66,9 +66,9 @@ func on_stone_launched():
 	is_moving = true
 
 func end_turn():
-	# 무효화된(낙사한) 돌들 정리
-	stones_p1 = stones_p1.filter(func(s): return is_instance_valid(s) and s.is_inside_tree())
-	stones_p2 = stones_p2.filter(func(s): return is_instance_valid(s) and s.is_inside_tree())
+	# 무효화된(낙사한) 돌들 정리 (queue_free 대기 중인 돌도 포함하여 완벽히 필터링)
+	stones_p1 = stones_p1.filter(func(s): return is_instance_valid(s) and s.is_inside_tree() and not s.is_queued_for_deletion())
+	stones_p2 = stones_p2.filter(func(s): return is_instance_valid(s) and s.is_inside_tree() and not s.is_queued_for_deletion())
 
 	# 승패 판정
 	if stones_p1.size() == 0:
@@ -106,6 +106,17 @@ func show_game_over(msg):
 func _on_bounds_body_exited(body):
 	if body.is_in_group("stone"):
 		body.queue_free()
+		# 돌이 낙사했을 때 즉시 승리 조건을 다시 체크하도록 지연 호출
+		call_deferred("check_win_condition_immediately")
+
+func check_win_condition_immediately():
+	stones_p1 = stones_p1.filter(func(s): return is_instance_valid(s) and s.is_inside_tree() and not s.is_queued_for_deletion())
+	stones_p2 = stones_p2.filter(func(s): return is_instance_valid(s) and s.is_inside_tree() and not s.is_queued_for_deletion())
+	
+	if stones_p1.size() == 0:
+		show_game_over("Player 2 Wins!")
+	elif stones_p2.size() == 0:
+		show_game_over("Player 1 Wins!")
 
 func _on_retry_button_pressed():
 	get_tree().reload_current_scene()
