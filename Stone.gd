@@ -73,9 +73,9 @@ func _process(_delta):
 		if drag_vector.length() > max_drag_distance:
 			drag_vector = drag_vector.normalized() * max_drag_distance
 			
-		# Line2D는 노드의 로컬 좌표를 사용하므로 drag_vector를 그대로 방향으로 사용
+		# Line2D는 노드의 로컬 좌표를 사용하므로 바둑알이 회전했을 경우를 대비해 역회전시켜 줍니다.
 		if line_2d:
-			line_2d.points[1] = drag_vector
+			line_2d.points[1] = drag_vector.rotated(-global_rotation)
 			
 		if power_gauge:
 			power_gauge.value = (drag_vector.length() / max_drag_distance) * 100.0
