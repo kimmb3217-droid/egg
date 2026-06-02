@@ -24,6 +24,7 @@ func _ready():
 	if power_gauge:
 		power_gauge.visible = false
 		power_gauge.max_value = 100
+		power_gauge.top_level = true # 부모의 회전에 영향을 받지 않도록 분리
 
 	# 물리 속성 초기화 (통통 튀는 느낌 방지 및 미끄러짐 구현)
 	gravity_scale = 0.0 # 위에서 내려다보는 2D 시점이므로 중력 0
@@ -79,6 +80,14 @@ func _process(_delta):
 			
 		if power_gauge:
 			power_gauge.value = (drag_vector.length() / max_drag_distance) * 100.0
+			
+			# 쏘는 방향(drag_vector.x)에 따라 게이지 위치를 돌의 왼쪽(-50) 또는 오른쪽(35)으로 배치
+			var side_offset = 35.0
+			if drag_vector.x > 0: # 오른쪽으로 쏠 때
+				side_offset = -50.0
+			
+			# 부모의 회전에 영향을 받지 않게 글로벌 좌표로 고정
+			power_gauge.global_position = global_position + Vector2(side_offset, -25.0)
 
 func _input(event):
 	if is_dragging and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
