@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://gameuid123"]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_scr"]
-[ext_resource type="PackedScene" uid="uid://stoneuid123" path="res://Stone.tscn" id="2_stone"]
+[ext_resource type="PackedScene" path="res://Stone.tscn" id="2_stone"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bounds"]
 size = Vector2(1000, 600)
