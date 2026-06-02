@@ -11,6 +11,7 @@ var game_manager = null
 
 @onready var line_2d = $Line2D
 @onready var sprite = $Sprite2D
+@onready var power_gauge = get_node_or_null("PowerGauge")
 
 func _ready():
 	add_to_group("stone")
@@ -19,6 +20,10 @@ func _ready():
 		# 시각적으로 궤적 선의 너비를 설정합니다
 		line_2d.width = 5.0
 		line_2d.default_color = Color(1.0, 0.0, 0.0, 0.6) # 빨간색 반투명
+		
+	if power_gauge:
+		power_gauge.visible = false
+		power_gauge.max_value = 100
 
 	# 물리 속성 초기화 (통통 튀는 느낌 방지 및 미끄러짐 구현)
 	gravity_scale = 0.0 # 위에서 내려다보는 2D 시점이므로 중력 0
@@ -55,6 +60,9 @@ func _input_event(_viewport, event, _shape_idx):
 			if line_2d:
 				line_2d.visible = true
 				line_2d.points = [Vector2.ZERO, Vector2.ZERO]
+			if power_gauge:
+				power_gauge.visible = true
+				power_gauge.value = 0
 
 func _process(_delta):
 	if is_dragging:
@@ -68,12 +76,17 @@ func _process(_delta):
 		# Line2D는 노드의 로컬 좌표를 사용하므로 drag_vector를 그대로 방향으로 사용
 		if line_2d:
 			line_2d.points[1] = drag_vector
+			
+		if power_gauge:
+			power_gauge.value = (drag_vector.length() / max_drag_distance) * 100.0
 
 func _input(event):
 	if is_dragging and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 		is_dragging = false
 		if line_2d:
 			line_2d.visible = false
+		if power_gauge:
+			power_gauge.visible = false
 			
 		var current_mouse = get_global_mouse_position()
 		var drag_vector = drag_start - current_mouse

@@ -39,3 +39,12 @@ shape = SubResource("CircleShape2D_abc12")
 visible = false
 width = 5.0
 default_color = Color(1, 0, 0, 0.6)
+
+[node name="PowerGauge" type="ProgressBar" parent="."]
+visible = false
+offset_left = 35.0
+offset_top = -25.0
+offset_right = 50.0
+offset_bottom = 25.0
+fill_mode = 3
+show_percentage = false
