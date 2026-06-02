@@ -32,14 +32,14 @@ func spawn_stones(count):
 		# Player 1 (Black)
 		var s1 = stone_scene.instantiate()
 		stones_container.add_child(s1)
-		s1.position = Vector2(200, start_y + i * 50)
+		s1.position = Vector2(340, start_y + i * 50)
 		s1.setup(1, self)
 		stones_p1.append(s1)
 		
 		# Player 2 (White)
 		var s2 = stone_scene.instantiate()
 		stones_container.add_child(s2)
-		s2.position = Vector2(1080, start_y + i * 50)
+		s2.position = Vector2(940, start_y + i * 50)
 		s2.setup(2, self)
 		stones_p2.append(s2)
 
