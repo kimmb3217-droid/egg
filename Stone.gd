@@ -9,7 +9,6 @@ var player_id = 1
 var interactable = false
 var game_manager = null
 var gauge_style = StyleBoxFlat.new()
-var power_gradient = Gradient.new()
 
 @onready var line_2d = $Line2D
 @onready var sprite = $Sprite2D
@@ -27,13 +26,6 @@ func _ready():
 		power_gauge.visible = false
 		power_gauge.max_value = 100
 		power_gauge.top_level = true # 부모의 회전에 영향을 받지 않도록 분리
-		
-		# 파워 게이지 색상 그라데이션 설정
-		power_gradient.set_color(0, Color.LIGHT_GREEN)
-		power_gradient.set_color(1, Color.RED)
-		power_gradient.add_point(0.25, Color.GREEN)
-		power_gradient.add_point(0.5, Color.YELLOW)
-		power_gradient.add_point(0.75, Color.ORANGE)
 		
 		# ProgressBar 채우기 스타일 설정
 		power_gauge.add_theme_stylebox_override("fill", gauge_style)
@@ -94,8 +86,17 @@ func _process(_delta):
 			var percentage = (drag_vector.length() / max_drag_distance) * 100.0
 			power_gauge.value = percentage
 			
-			# 부드러운 색상 전환 적용
-			gauge_style.bg_color = power_gradient.sample(percentage / 100.0)
+			# 5단계 파워 색상 적용 (명확하게 끊어지는 단계)
+			if percentage < 20.0:
+				gauge_style.bg_color = Color.LIGHT_GREEN
+			elif percentage < 40.0:
+				gauge_style.bg_color = Color.GREEN
+			elif percentage < 60.0:
+				gauge_style.bg_color = Color.YELLOW
+			elif percentage < 80.0:
+				gauge_style.bg_color = Color.ORANGE
+			else:
+				gauge_style.bg_color = Color.RED
 			
 			# 쏘는 방향(drag_vector.x)에 따라 게이지 위치를 돌의 왼쪽(-50) 또는 오른쪽(35)으로 배치
 			var side_offset = 35.0
