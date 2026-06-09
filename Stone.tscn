@@ -12,14 +12,14 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_def34"]
 gradient = SubResource("Gradient_abc12")
-width = 64
-height = 64
+width = 44
+height = 44
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_abc12"]
-radius = 30.0
+radius = 20.0
 
 [node name="Stone" type="RigidBody2D"]
 input_pickable = true
@@ -42,9 +42,9 @@ default_color = Color(1, 0, 0, 0.6)
 
 [node name="PowerGauge" type="ProgressBar" parent="."]
 visible = false
-offset_left = 35.0
+offset_left = 25.0
 offset_top = -25.0
-offset_right = 50.0
+offset_right = 40.0
 offset_bottom = 25.0
 fill_mode = 3
 show_percentage = false

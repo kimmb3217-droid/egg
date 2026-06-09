@@ -98,10 +98,10 @@ func _process(_delta):
 			else:
 				gauge_style.bg_color = Color.RED
 			
-			# 쏘는 방향(drag_vector.x)에 따라 게이지 위치를 돌의 왼쪽(-50) 또는 오른쪽(35)으로 배치
-			var side_offset = 35.0
+			# 쏘는 방향(drag_vector.x)에 따라 게이지 위치를 돌의 왼쪽(-40) 또는 오른쪽(25)으로 배치
+			var side_offset = 25.0
 			if drag_vector.x > 0: # 오른쪽으로 쏠 때
-				side_offset = -50.0
+				side_offset = -40.0
 			
 			# 부모의 회전에 영향을 받지 않게 글로벌 좌표로 고정
 			power_gauge.global_position = global_position + Vector2(side_offset, -25.0)
