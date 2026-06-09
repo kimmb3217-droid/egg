@@ -44,6 +44,17 @@ func spawn_stones(count):
 		stones_p2.append(s2)
 
 func _process(_delta):
+	var all_stones = stones_p1 + stones_p2
+	var dropped_any = false
+	for stone in all_stones:
+		if is_instance_valid(stone) and not stone.is_queued_for_deletion():
+			if stone.position.x < 300 or stone.position.x > 980 or stone.position.y < 20 or stone.position.y > 700:
+				stone.queue_free()
+				dropped_any = true
+				
+	if dropped_any:
+		call_deferred("check_win_condition_immediately")
+
 	if is_moving:
 		check_movement()
 
