@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 @export var max_drag_distance = 200.0
-@export var power_multiplier = 7.0
+@export var power_multiplier = 4.0
 
 var is_dragging = false
 var drag_start = Vector2()
