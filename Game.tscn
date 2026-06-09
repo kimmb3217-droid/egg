@@ -18,6 +18,7 @@ offset_right = 980.0
 offset_bottom = 700.0
 texture = ExtResource("3_board")
 expand_mode = 1
+stretch_mode = 5
 
 [node name="Bounds" type="Area2D" parent="."]
 position = Vector2(640, 360)
