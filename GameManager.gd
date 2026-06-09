@@ -32,9 +32,9 @@ func start_coin_toss():
 	
 	if turn_label:
 		if first_player == 1:
-			turn_label.text = "동전 던지기 결과: 흑돌(1P) 선공 및 먼저 배치!"
+			turn_label.text = "흑돌(1P)부터 배치를 시작합니다!"
 		else:
-			turn_label.text = "동전 던지기 결과: 백돌(2P) 선공 및 먼저 배치!"
+			turn_label.text = "백돌(2P)부터 배치를 시작합니다!"
 	
 	await get_tree().create_timer(2.0).timeout
 	current_state = GameState.PLACEMENT
